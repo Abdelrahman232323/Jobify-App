@@ -1,0 +1,78 @@
+<div class="login-container">
+  <div class="login-left">
+    <div class="logo">
+      <div class="logo-icon">J</div>
+      <span class="logo-text">Jobify</span>
+    </div>
+    <div class="login-message">
+      <h1>Ensure a Fast and Successful Journey <span>to Your Next Career Move</span></h1>
+    </div>
+  </div>
+  
+  <div class="login-right">
+    <div class="login-form-container">
+      <div class="welcome-text">
+        <h2>Welcome back to <span class="highlight">Jobify</span></h2>
+      </div>
+      
+      <button type="button" class="google-login-btn" (click)="loginWithGoogle()">
+        <img src="assets/google-icon.svg" alt="Google icon">
+        Sign in with Google
+      </button>
+      
+      <div class="divider">
+        <span>or</span>
+      </div>
+      
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <input 
+            type="email" 
+            class="form-control" 
+            formControlName="email" 
+            placeholder="Email"
+            [ngClass]="{'invalid': submitted && f['email'].errors}"
+            aria-label="Email address"
+          >
+          <div class="error-message" *ngIf="submitted && f['email'].errors">
+            <span *ngIf="f['email'].errors['required']">Email is required</span>
+            <span *ngIf="f['email'].errors['email']">Please enter a valid email address</span>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <input 
+            [type]="showPassword ? 'text' : 'password'" 
+            class="form-control" 
+            formControlName="password" 
+            placeholder="Password"
+            [ngClass]="{'invalid': submitted && f['password'].errors}"
+            aria-label="Password"
+          >
+          <div class="error-message" *ngIf="submitted && f['password'].errors">
+            <span *ngIf="f['password'].errors['required']">Password is required</span>
+            <span *ngIf="f['password'].errors['minlength']">Password must be at least 6 characters</span>
+          </div>
+        </div>
+        
+        <div class="error-message" *ngIf="errorMessage">
+          {{ errorMessage }}
+        </div>
+        
+        <button type="submit" class="sign-in-btn" [disabled]="isLoading">
+          <span *ngIf="!isLoading">SIGN IN</span>
+          <div *ngIf="isLoading" class="spinner" aria-hidden="true"></div>
+          <span *ngIf="isLoading" class="visually-hidden">Signing in...</span>
+        </button>
+      </form>
+      
+      <div class="forgot-password">
+        <a routerLink="/forgot-password">Forgot Password?</a>
+      </div>
+      
+      <div class="signup-prompt">
+        Not a member? <a routerLink="/signup" class="highlight">Sign Up now</a>
+      </div>
+    </div>
+  </div>
+</div>
